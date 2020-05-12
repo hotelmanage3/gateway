@@ -10,9 +10,9 @@ resources:
 
 variables:
 - group: common-value
-  # containerRegistry: 'team3acr.azurecr.io'
-  # containerRegistryDockerConnection: 'team3Conn'
-  # environment: 'team3env'
+  # containerRegistry: 'event.azurecr.io'
+  # containerRegistryDockerConnection: 'acr'
+  # environment: 'aks.default'
 - name: imageRepository
   value: 'gateway'
 - name: dockerfilePath
@@ -26,6 +26,7 @@ variables:
   value: $(Pipeline.Workspace)/.m2/repository
 - name: MAVEN_OPTS
   value: '-Dmaven.repo.local=$(MAVEN_CACHE_FOLDER)'
+
 
 stages:
 - stage: Build
@@ -60,7 +61,6 @@ stages:
         Dockerfile: '**/Dockerfile'
         tags: |
           $(tag)
-
 - stage: Deploy
   displayName: Deploy stage
   dependsOn: Build
@@ -104,22 +104,6 @@ stages:
                           image: $(containerRegistry)/$(imageRepository):$(tag)
                           ports:
                             - containerPort: 8080
-                          readinessProbe:
-                            httpGet:
-                              path: /actuator/health
-                              port: 8080
-                            initialDelaySeconds: 10
-                            timeoutSeconds: 2
-                            periodSeconds: 5
-                            failureThreshold: 10
-                          livenessProbe:
-                            httpGet:
-                              path: /actuator/health
-                              port: 8080
-                            initialDelaySeconds: 120
-                            timeoutSeconds: 2
-                            periodSeconds: 5
-                            failureThreshold: 5
               secretType: 'dockerRegistry'
               containerRegistryType: 'Azure Container Registry'
           - task: Kubernetes@1
@@ -142,5 +126,7 @@ stages:
                       targetPort: 8080
                   selector:
                     app: $(imageRepository)
+                  type:
+                      LoadBalancer
               secretType: 'dockerRegistry'
               containerRegistryType: 'Azure Container Registry'
