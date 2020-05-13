@@ -8,12 +8,12 @@ spring:
         - id: roommanagement
           uri: http://RoomManagement:8080
           predicates:
-            - Path=/RoomManagement/**
+            - Path=/roommanagements/**
         - id: reservationmanagement
           uri: http://ReservationManagement:8080
           predicates:
-            - Path=/ReservationManagement/**
+            - Path=/reservationmanagements/**
         - id: paymentmanagement
           uri: http://PaymentManagement:8080
           predicates:
-            - Path=/PaymentManagement/**
+            - Path=/paymentmanagements/**
