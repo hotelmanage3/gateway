@@ -17,3 +17,16 @@ spring:
           uri: http://PaymentManagement:8080
           predicates:
             - Path=/paymentmanagements/**
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "*"
+            allowedMethods:
+              - "*"
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+            
+server:
+  port: 8080
