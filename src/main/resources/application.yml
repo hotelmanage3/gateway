@@ -5,15 +5,15 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: order
+        - id: roommanagement
           uri: http://RoomManagement:8080
           predicates:
             - Path=/RoomManagement/**
-        - id: product
+        - id: reservationmanagement
           uri: http://ReservationManagement:8080
           predicates:
             - Path=/ReservationManagement/**
-        - id: order
+        - id: paymentmanagement
           uri: http://PaymentManagement:8080
           predicates:
             - Path=/PaymentManagement/**
