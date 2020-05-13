@@ -6,15 +6,15 @@ spring:
     gateway:
       routes:
         - id: roommanagement
-          uri: http://RoomManagement:8080
+          uri: http://roommanagement:8080
           predicates:
             - Path=/roommanagements/**
         - id: reservationmanagement
-          uri: http://ReservationManagement:8080
+          uri: http://reservationmanagement:8080
           predicates:
             - Path=/reservationmanagements/**
         - id: paymentmanagement
-          uri: http://PaymentManagement:8080
+          uri: http://paymentmanagement:8080
           predicates:
             - Path=/paymentmanagements/**
       globalcors:
