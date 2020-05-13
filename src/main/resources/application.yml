@@ -2,6 +2,7 @@ server:
   port: 8080
 
 spring:
+  profiles: docker
   cloud:
     gateway:
       routes:
